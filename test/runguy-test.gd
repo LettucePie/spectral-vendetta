@@ -33,6 +33,6 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	var color_percent = inverse_lerp(0, SPEED, abs(velocity.x))
-	$Sprite2D/GPUParticles2D.lifetime = lerp(
+	$BaseOutline/GPUParticles2D2.lifetime = lerp(
 		color_lifetime_max, color_lifetime_min, color_percent
 	)
