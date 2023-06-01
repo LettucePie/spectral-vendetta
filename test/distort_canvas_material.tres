@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bocjyfvjn1357"]
+
+[ext_resource type="Shader" path="res://test/shaders/watershader.gdshader" id="1_caexy"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_npf64"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jgqvf"]
+seamless = true
+noise = SubResource("FastNoiseLite_npf64")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_caexy")
+shader_parameter/refraction_stretch = Vector2(-1, 1)
+shader_parameter/refraction_strength = 0.012
+shader_parameter/speed = 0.046
+shader_parameter/refraction_map = SubResource("NoiseTexture2D_jgqvf")

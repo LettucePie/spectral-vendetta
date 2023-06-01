@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var wobble_speed := 0.5
 @export var x_reso := 100
 @export var y_reso := 80
 @export var dab_scale := 0.2
@@ -59,6 +60,8 @@ func _process(delta):
 			var indices = _collect_nearest_dab_indices(c.global_position, c.size)
 			if indices.size() > 0:
 				_color_dabs(indices, c.color, c.weight)
+		if get_parent() is PathFollow2D:
+			get_parent().progress_ratio += delta * wobble_speed
 
 
 func _fade_dabs(weight : float) -> void:
