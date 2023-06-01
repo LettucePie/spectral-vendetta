@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://2swd46spmvil"]
+[gd_scene load_steps=32 format=3 uid="uid://2swd46spmvil"]
 
 [ext_resource type="Script" path="res://test/DabGrid.gd" id="1_l2san"]
 [ext_resource type="Texture2D" uid="uid://sl0nc74v7g6" path="res://test/RunGuy.png" id="1_l3u8x"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bw54ak8yi0cyg" path="res://art/particle_textures/brush-dabs/brushdab-4.png" id="5_78ye6"]
 [ext_resource type="Texture2D" uid="uid://c3g2k8yaqco47" path="res://test/RunGuy_PartcleMask.png" id="5_ob5kf"]
 [ext_resource type="Texture2D" uid="uid://xsvesef3401w" path="res://test/sv_draft_3_bg-colors.png" id="6_xdocn"]
-[ext_resource type="Material" uid="uid://bocjyfvjn1357" path="res://test/distort_canvas_material.tres" id="7_0ctr6"]
 [ext_resource type="Texture2D" uid="uid://dairrsum3tvl6" path="res://test/sv_draft_3_line-only_detail.png" id="7_vu7d8"]
 [ext_resource type="Texture2D" uid="uid://cy5iebdeie4av" path="res://test/OverlayTexture.png" id="8_3uxdl"]
 [ext_resource type="Script" path="res://test/ColorPoint.gd" id="11_cyt5f"]
@@ -20,6 +19,86 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 7, -7, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 6, 5, 0, 0, 0, 0, -5, 7, 0, 0, 0, 0, -7, -1, 0, 0, 0, 0, -1, -11, 0, 0, 0, 0, 7, -7)
 }
 point_count = 7
+
+[sub_resource type="Shader" id="Shader_ffwt6"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform sampler2D refraction_map;
+
+uniform vec2 refraction_stretch = vec2(1.0, 1.0);
+uniform float refraction_strength : hint_range(0.0, 0.1) = 0.02;
+
+uniform float speed : hint_range(0.0, 1.0) = 0.1;
+
+
+void fragment()
+{
+	vec2 uv = UV;
+	
+	vec2 refraction_offset = texture(
+		refraction_map, 
+		vec2(
+			mod(uv.x * refraction_stretch.x + TIME * speed, 1.0), 
+			mod(uv.y * refraction_stretch.y + TIME * speed, 1.0))).xy;
+	refraction_offset -= 0.5; 
+	
+	vec4 refraction = texture(TEXTURE, UV - refraction_offset * refraction_strength);
+	
+	vec4 color = refraction.rgba;
+	COLOR = color;
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_npf64"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jgqvf"]
+seamless = true
+noise = SubResource("FastNoiseLite_npf64")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o4e0m"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ffwt6")
+shader_parameter/refraction_stretch = Vector2(-1, 1)
+shader_parameter/refraction_strength = 0.005
+shader_parameter/speed = 0.046
+shader_parameter/refraction_map = SubResource("NoiseTexture2D_jgqvf")
+
+[sub_resource type="Shader" id="Shader_jdqfr"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform sampler2D refraction_map;
+
+uniform vec2 refraction_stretch = vec2(1.0, 1.0);
+uniform float refraction_strength : hint_range(0.0, 0.1) = 0.02;
+
+uniform float speed : hint_range(0.0, 1.0) = 0.1;
+
+
+void fragment()
+{
+	vec2 uv = UV;
+	
+	vec2 refraction_offset = texture(
+		refraction_map, 
+		vec2(
+			mod(uv.x * refraction_stretch.x + TIME * speed, 1.0), 
+			mod(uv.y * refraction_stretch.y + TIME * speed, 1.0))).xy;
+	refraction_offset -= 0.5; 
+	
+	vec4 refraction = texture(TEXTURE, UV - refraction_offset * refraction_strength);
+	
+	vec4 color = refraction.rgba;
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxln4"]
+resource_local_to_scene = true
+shader = SubResource("Shader_jdqfr")
+shader_parameter/refraction_stretch = Vector2(1, 1)
+shader_parameter/refraction_strength = 0.007
+shader_parameter/speed = 0.036
+shader_parameter/refraction_map = SubResource("NoiseTexture2D_jgqvf")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ljcv1"]
 radius = 23.0
@@ -124,7 +203,7 @@ position = Vector2(1152, 646)
 
 [node name="SvDraft3" type="Sprite2D" parent="."]
 z_index = -2
-material = ExtResource("7_0ctr6")
+material = SubResource("ShaderMaterial_o4e0m")
 position = Vector2(590.375, 176.5)
 scale = Vector2(1.17875, 1.17875)
 texture = ExtResource("6_xdocn")
@@ -132,12 +211,13 @@ texture = ExtResource("6_xdocn")
 [node name="StaticBody2D" type="StaticBody2D" parent="SvDraft3"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SvDraft3/StaticBody2D"]
+visible = false
 polygon = PackedVector2Array(-509.332, 257.476, -410.923, 254.931, -332.874, 222.694, -247.19, 194.698, -175.928, 205.726, -96.1824, 243.054, -18.982, 304.984, 55.6734, 326.193, 543.478, 321.951, 530.753, 421.209, -527.996, 425.451)
 
 [node name="Line" type="Sprite2D" parent="SvDraft3"]
 z_index = 2
 z_as_relative = false
-material = ExtResource("7_0ctr6")
+material = SubResource("ShaderMaterial_jxln4")
 texture = ExtResource("7_vu7d8")
 
 [node name="CanvasTex" type="Sprite2D" parent="SvDraft3/Line"]
@@ -151,7 +231,7 @@ script = ExtResource("2_bqbow")
 shape = SubResource("CapsuleShape2D_ljcv1")
 
 [node name="BaseOutline" type="Sprite2D" parent="CharacterBody2D"]
-material = ExtResource("7_0ctr6")
+material = SubResource("ShaderMaterial_jxln4")
 scale = Vector2(0.345703, 0.316371)
 texture = ExtResource("1_l3u8x")
 
@@ -188,14 +268,31 @@ texture = ExtResource("5_ob5kf")
 position = Vector2(-13, -34)
 script = ExtResource("11_cyt5f")
 color = Color(0.478431, 0.054902, 0.521569, 1)
+weight = 0.2
 size = 30.0
+wobble = true
+wobble_distance = 3.0
 
 [node name="ColorPoint2" type="Marker2D" parent="CharacterBody2D" groups=["ColorPoint"]]
 position = Vector2(7, -37)
 script = ExtResource("11_cyt5f")
 color = Color(0.403922, 0.0392157, 0.443137, 1)
+weight = 0.2
+wobble = true
+wobble_distance = 3.0
 
 [node name="ColorPoint3" type="Marker2D" parent="CharacterBody2D" groups=["ColorPoint"]]
 position = Vector2(-17, -8)
 script = ExtResource("11_cyt5f")
 color = Color(0.564706, 0.0784314, 0.611765, 1)
+weight = 0.2
+wobble = true
+wobble_distance = 3.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 863.0
+offset_top = 14.0
+offset_right = 1086.0
+offset_bottom = 66.0
+text = "Static Background Art/Color
+Point Dab Dynamic Art/Color"

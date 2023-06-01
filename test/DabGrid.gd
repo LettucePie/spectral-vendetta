@@ -37,7 +37,7 @@ func _build_grid() -> void:
 			new_dab.position = march_point
 			new_dab.rotation = PI * randf()
 			new_dab.apply_scale(Vector2(dab_scale, dab_scale))
-			new_dab.modulate = Color(0.0, 0.0, 0.0, 0.0)
+			new_dab.modulate = Color(1.0, 1.0, 1.0, 0.0)
 			dabs.append(new_dab)
 			add_child(new_dab)
 			dab_coords.append(march_point)
@@ -57,7 +57,11 @@ func _process(delta):
 	if active:
 		_fade_dabs(delta)
 		for c in color_points:
-			var indices = _collect_nearest_dab_indices(c.global_position, c.size)
+			var indices = []
+			if c.aabb:
+				indices = _collect_area_dab_indices(c.global_position, c.dimensions)
+			else:
+				indices = _collect_nearest_dab_indices(c.global_position, c.size)
 			if indices.size() > 0:
 				_color_dabs(indices, c.color, c.weight)
 		if get_parent() is PathFollow2D:
@@ -67,6 +71,18 @@ func _process(delta):
 func _fade_dabs(weight : float) -> void:
 	for d in dabs:
 		d.modulate.a = lerp(d.modulate.a, 0.0, weight)
+
+
+func _collect_area_dab_indices(center : Vector2, dimension : Vector2) -> Array:
+	var result = []
+	var top_left = center - dimension
+	var bottom_right = center + dimension
+	for i in dab_coords.size() -1:
+		var coord = dab_coords[i]
+		if coord.x >= top_left.x and coord.x <= bottom_right.x:
+			if coord.y >= top_left.y and coord.y <= bottom_right.y:
+				result.append(i)
+	return result
 
 
 func _collect_nearest_dab_indices(pos : Vector2, size : float) -> Array:
