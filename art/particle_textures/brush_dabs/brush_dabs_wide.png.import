@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0fo0n764yir5"
-path="res://.godot/imported/brush_dabs_wide.png-beceea0628d09929735c0eff45d141c5.ctex"
+path="res://.godot/imported/brush_dabs_wide.png-36f71194500b7a3a2460093d2a1bc18c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/particle_textures/brush-dabs/brush_dabs_wide.png"
-dest_files=["res://.godot/imported/brush_dabs_wide.png-beceea0628d09929735c0eff45d141c5.ctex"]
+source_file="res://art/particle_textures/brush_dabs/brush_dabs_wide.png"
+dest_files=["res://.godot/imported/brush_dabs_wide.png-36f71194500b7a3a2460093d2a1bc18c.ctex"]
 
 [params]
 

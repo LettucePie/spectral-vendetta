@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw54ak8yi0cyg"
-path="res://.godot/imported/brushdab-4.png-5e9777bdcad6bdf3292efc3d8ca90911.ctex"
+uid="uid://1eojj57vw4k0"
+path="res://.godot/imported/background-grasslands-3.png-e089cd896b8fd6a943b8fba537768c05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/particle_textures/brush-dabs/brushdab-4.png"
-dest_files=["res://.godot/imported/brushdab-4.png-5e9777bdcad6bdf3292efc3d8ca90911.ctex"]
+source_file="res://art/background_visuals/background-grasslands-3.png"
+dest_files=["res://.godot/imported/background-grasslands-3.png-e089cd896b8fd6a943b8fba537768c05.ctex"]
 
 [params]
 

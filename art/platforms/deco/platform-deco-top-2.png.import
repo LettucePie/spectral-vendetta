@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ojtipakiik7i"
-path="res://.godot/imported/brushdab-2.png-a8b6200d6a9c1c76435981b64fa1bee2.ctex"
+uid="uid://bme48b16v3vxs"
+path="res://.godot/imported/platform-deco-top-2.png-6cab4f20ecae843be2bd6562d97ee452.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/particle_textures/brush-dabs/brushdab-2.png"
-dest_files=["res://.godot/imported/brushdab-2.png-a8b6200d6a9c1c76435981b64fa1bee2.ctex"]
+source_file="res://art/platforms/deco/platform-deco-top-2.png"
+dest_files=["res://.godot/imported/platform-deco-top-2.png-6cab4f20ecae843be2bd6562d97ee452.ctex"]
 
 [params]
 

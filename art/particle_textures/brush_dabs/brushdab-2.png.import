@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7t8x258m17m5"
-path="res://.godot/imported/brushdab-3.png-2754e64ecd3c56fd1a75d06cf2cb6554.ctex"
+uid="uid://ojtipakiik7i"
+path="res://.godot/imported/brushdab-2.png-982008bd1a17d70138486ad7dc6e83bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/particle_textures/brush-dabs/brushdab-3.png"
-dest_files=["res://.godot/imported/brushdab-3.png-2754e64ecd3c56fd1a75d06cf2cb6554.ctex"]
+source_file="res://art/particle_textures/brush_dabs/brushdab-2.png"
+dest_files=["res://.godot/imported/brushdab-2.png-982008bd1a17d70138486ad7dc6e83bb.ctex"]
 
 [params]
 
