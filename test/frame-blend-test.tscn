@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6trsy1nq6suo"]
+
+[ext_resource type="Shader" uid="uid://bkq84bjba0461" path="res://test/frame-blend-test-visualshader.tres" id="1_3vsv2"]
+[ext_resource type="Texture2D" uid="uid://c436kkkldwve0" path="res://test/werewolf_001.png" id="2_fgtgi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u52m6"]
+shader = ExtResource("1_3vsv2")
+
+[node name="frame-blending" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_u52m6")
+position = Vector2(344, 274)
+texture = ExtResource("2_fgtgi")
