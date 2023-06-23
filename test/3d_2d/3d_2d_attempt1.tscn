@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://r1fiayw07nli"]
+
+[ext_resource type="PackedScene" uid="uid://o3ayrua1nmap" path="res://test/3d_2d/3d_2d_attempt1.glb" id="1_i4mvk"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="3d_2d" parent="." instance=ExtResource("1_i4mvk")]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(0.556578, -0.369179, 0.744263, -0.0066438, 0.893838, 0.448341, -0.830769, -0.254481, 0.495037, -2.14499, -0.815769, -0.895008)
+text = "This example has a central \"Body\" armature, and an armature for the Line. It looks like each Armature will export their animations seperately, rather than in one merged animation.
+
+So now I need to figure out if I should keep this approach, or make it so a Model has Body and Line bones within one Armature, rather than seperate.
+
+Benefits I can immediately think of for seperating them is the freedom and flexibility. Animations may even be more lightweight this way, since the processing will be of only whats required, instead of every single bone in the Singular Armature.
+
+This approach does have the Huge cost though of management. I would need to develop a system to execute the correct Line animation with the Body animation. It could be easy to set up using Parent Child relations, along with a good naming scheme. There is probably some Animation Tree thing that could happen too... but I don't currently know.
+
+I'll have to consider actual usecases before landing on a design scheme. Hopefully I don't end up doing both..."
+autowrap_mode = 2
+width = 800.0
+
+[editable path="3d_2d"]
