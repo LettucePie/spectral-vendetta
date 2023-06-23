@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgde7plt5irff"]
+
+[ext_resource type="PackedScene" uid="uid://cxwm18pivrjig" path="res://test/3d_2d/3d_2d_attempt2.glb" id="1_eh4ae"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(0.556578, -0.369179, 0.744263, -0.0066438, 0.893838, 0.448341, -0.830769, -0.254481, 0.495037, -2.14499, -0.815769, -0.895008)
+text = "This example is the Singular Armature approach. I also messed with the .blend and tried making Armature Pose Assets. I don't know what they are exactly or do...
+
+Upon looking at this, I am starting to notice that this approach wouldn't allow me to have dynamic lines. To explain further, every animation of a creature would playback the same way every time. If instead I were to use seperate armatures, I could have subtle differences occur dynamically with each Line animation, even when the Creature character is jumping, running, or standing still... Though could I just recreate that effect with a shader?
+
+Much contemplation is happening...
+
+The workflow is also important to consider. In blender, I can currently click on any bone in pose mode, and it will jump to the armature it belongs to automatically. So that's not too troublesome. However for the animation naming it would be difficult to control. I would have to have an action called \"Run\" for editing the leg bone, then have another called \"LegLineRun\" for editing the leg lines while running. If don't name them seperately, then godot will import them as \"Run\" and \"Run1\" Run2\" \"Run3\" and so on... FOR EACH LINE. Also the seperate workflow will require me to make sure EVERY line armature has the name correctly, as well as assigned keyframes."
+autowrap_mode = 2
+width = 800.0
+
+[node name="3d_2d_attempt2" parent="." instance=ExtResource("1_eh4ae")]
+
+[node name="Skeleton3D" parent="3d_2d_attempt2/Armature" index="0"]
+bones/2/rotation = Quaternion(-3.55271e-15, -2.84217e-14, -8.47033e-22, 1)
+bones/3/rotation = Quaternion(6.32628e-21, -1.42109e-14, -8.47033e-22, 1)
+bones/5/rotation = Quaternion(-3.55271e-15, 0, 8.07794e-28, 1)
+
+[editable path="3d_2d_attempt2"]
